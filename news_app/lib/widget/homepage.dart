@@ -44,12 +44,63 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Container(
-                  height: 80,
-                  color: Colors.yellow,
-                ),
-                Container(
-                  height: 80,
-                  color: Colors.yellow,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Color.fromARGB(255, 184, 167, 119),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15, left: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Prev'),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 127, 139, 120)),
+                        ),
+                        Container(
+                          height: 25,
+                          width: 25,
+                          color: Colors.transparent,
+                          child: Center(child: Text('1')),
+                        ),
+                        Container(
+                          height: 25,
+                          width: 25,
+                          color: Colors.white,
+                          child: Center(child: Text('2')),
+                        ),
+                        Container(
+                          height: 25,
+                          width: 25,
+                          color: Colors.transparent,
+                          child: Center(child: Text('3')),
+                        ),
+                        Container(
+                          height: 25,
+                          width: 25,
+                          color: Colors.transparent,
+                          child: Center(child: Text('4')),
+                        ),
+                        Container(
+                          height: 25,
+                          width: 25,
+                          color: Colors.transparent,
+                          child: Center(child: Text('5')),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Next'),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 127, 139, 120)),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 FutureBuilder<List<Articles>>(
                   future: CustomeHttp()
@@ -64,19 +115,29 @@ class _HomePageState extends State<HomePage> {
                     } else if (snapshot.data == null) {
                       return Text('No data found!');
                     }
+
                     return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: Image.network(
-                                '${snapshot.data![index].urlToImage}'),
-                            title: Text(
-                              '${snapshot.data![index].title}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                          return Container(
+                            margin: EdgeInsets.only(top: 5),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4,
+                                    color: Color.fromARGB(255, 230, 181, 35)),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: ListTile(
+                              leading: Image.network(
+                                  '${snapshot.data![index].urlToImage}'),
+                              title: Text(
+                                '${snapshot.data![index].title}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle:
+                                  Text('${snapshot.data![index].description}'),
                             ),
-                            subtitle:
-                                Text('${snapshot.data![index].description}'),
                           );
                         });
                   },
