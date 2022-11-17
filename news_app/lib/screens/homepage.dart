@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/model/news_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/widget/const.dart';
-import 'package:news_app/widget/custom_http.dart';
+import 'package:news_app/screens/const.dart';
+import 'package:news_app/screens/custom_http.dart';
+import 'package:news_app/screens/search_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,10 +17,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> list = <String>[
+    'relevancy',
+    'popularity',
+    'publishedAt',
+  ];
+  String sortBy = 'popularity';
   int pageNo = 1;
   int currentIndex = 1;
 
-  String sortBy = 'popularity';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +35,16 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: SearchPage(),
+                        inheritTheme: true,
+                        ctx: context),
+                  );
+                },
                 icon: Icon(Icons.search),
                 iconSize: 35,
                 color: Colors.black,
@@ -106,6 +122,52 @@ class _HomePageState extends State<HomePage> {
                               style: GoogleFonts.roboto(),
                             )),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 40,
+                      // color: Color.fromARGB(255, 165, 156, 71),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Select catagory',
+                            style: myStyle(30, Colors.black),
+                          ),
+                          Container(
+                            width: 120,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(14)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DropdownButton<String>(
+                                value: sortBy,
+                                icon: const Icon(Icons.arrow_downward),
+                                elevation: 16,
+                                style:
+                                    const TextStyle(color: Colors.deepPurple),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    sortBy = value!;
+                                  });
+                                },
+                                items: list.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   FutureBuilder<List<Articles>>(
