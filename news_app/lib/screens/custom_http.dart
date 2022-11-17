@@ -12,7 +12,7 @@ class CustomeHttp {
     Articles articles;
 
     var responce = await http.get(Uri.parse(
-        "${baseUrl}&q=bitcoin&page=$pageNo&pageSize=1 0&sortBy=$sortBy&apiKey=$token"));
+        "$baseUrl&q=bitcoin&pageSize=10&page=10&sortBy=$sortBy&apiKey=$token"));
     print("responce is ${responce.body}");
 
     var data = jsonDecode(responce.body);

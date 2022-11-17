@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     PageTransition(
+                        duration: Duration(seconds: 1),
                         type: PageTransitionType.bottomToTop,
                         child: SearchPage(),
                         inheritTheme: true,

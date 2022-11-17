@@ -64,6 +64,13 @@ class _SearchPageState extends State<SearchPage> {
   FocusNode focusNode = FocusNode();
   List<String> sarchKeyword = [
     "World",
+    "Sports",
+    "Politics",
+    "Fashoin",
+    "Weather",
+    "LifeStyle",
+    "             ",
+    "See more...",
   ];
 
   bool isleaoding = false;
@@ -87,6 +94,17 @@ class _SearchPageState extends State<SearchPage> {
                     focusNode: focusNode,
                     controller: searchController,
                     decoration: InputDecoration(
+                        hintText: 'Search here..',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 3, color: Colors.orange),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 4, color: Colors.orange),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         suffixIcon: IconButton(
                             onPressed: () {
                               searchList = [];
@@ -101,31 +119,37 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 15,
+                ),
                 searchList.isEmpty
-                    ? SizedBox(
-                        height: 100,
-                        child: MasonryGridView.count(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 20,
-                          itemCount: sarchKeyword.length,
-                          crossAxisSpacing: 4,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  isleaoding = true;
-                                });
-                                searchController.text = sarchKeyword[index];
-                                searchList = await CustomeHttp()
-                                    .fetchSearchsData(
-                                        query: sarchKeyword[index]);
-                                setState(() {
-                                  isleaoding = false;
-                                });
-                              },
-                              child: Text("${sarchKeyword[index]}"),
-                            );
-                          },
+                    ? Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: SizedBox(
+                          height: 100,
+                          child: MasonryGridView.count(
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 20,
+                            itemCount: sarchKeyword.length,
+                            crossAxisSpacing: 4,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () async {
+                                  setState(() {
+                                    isleaoding = true;
+                                  });
+                                  searchController.text = sarchKeyword[index];
+                                  searchList = await CustomeHttp()
+                                      .fetchSearchsData(
+                                          query: sarchKeyword[index]);
+                                  setState(() {
+                                    isleaoding = false;
+                                  });
+                                },
+                                child: Text("${sarchKeyword[index]}"),
+                              );
+                            },
+                          ),
                         ),
                       )
                     : SizedBox(
@@ -136,13 +160,23 @@ class _SearchPageState extends State<SearchPage> {
                     shrinkWrap: true,
                     itemCount: searchList.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading:
-                            Image.network("${searchList[index].urlToImage}"),
-                        title: Text("${searchList[index].title}"),
-                        subtitle: Text(
-                          "${searchList[index].description}",
-                          style: myStyle(14, Colors.black54),
+                      return Container(
+                        margin: EdgeInsets.only(
+                          top: 10,
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 4,
+                                color: Color.fromARGB(255, 230, 181, 35)),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: ListTile(
+                          leading:
+                              Image.network("${searchList[index].urlToImage}"),
+                          title: Text("${searchList[index].title}"),
+                          subtitle: Text(
+                            "${searchList[index].description}",
+                            style: myStyle(14, Colors.black54),
+                          ),
                         ),
                       );
                     })
