@@ -196,9 +196,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                      width: 4,
-                                      color: Color.fromARGB(255, 230, 181, 35)),
-                                  borderRadius: BorderRadius.circular(15)),
+                                      width: 1,
+                                      color:
+                                          Color.fromARGB(255, 102, 102, 101)),
+                                  borderRadius: BorderRadius.circular(8)),
                               child: ListTile(
                                 leading: Image.network(
                                     '${snapshot.data![index].urlToImage}'),

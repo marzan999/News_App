@@ -1,49 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:news_app/model/news_model.dart';
-// import 'package:news_app/screens/custom_http.dart';
-
-// class SearchPage extends StatefulWidget {
-//   const SearchPage({super.key});
-
-//   @override
-//   State<SearchPage> createState() => _SearchPageState();
-// }
-
-// class _SearchPageState extends State<SearchPage> {
-//   TextEditingController searchController = TextEditingController();
-//   List<Articles> searchList = [];
-//   FocusNode focusNode = FocusNode();
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         body: Container(
-//             child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               Container(
-//                 height: 60,
-//                 child: TextField(
-//                   focusNode: focusNode,
-//                   controller: searchController,
-//                   decoration: InputDecoration(
-//                       suffixIcon: IconButton(
-//                           onPressed: () {}, icon: Icon(Icons.search))),
-//                   onEditingComplete: () async {
-//                     searchList = await CustomeHttp().fetchSearchsData(
-//                         query: searchController.text.toString());
-//                     setState(() {});
-//                   },
-//                 ),
-//               )
-//             ],
-//           ),
-//         )),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -166,9 +120,9 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                width: 4,
-                                color: Color.fromARGB(255, 230, 181, 35)),
-                            borderRadius: BorderRadius.circular(15)),
+                                width: 1,
+                                color: Color.fromARGB(255, 102, 102, 101)),
+                            borderRadius: BorderRadius.circular(8)),
                         child: ListTile(
                           leading:
                               Image.network("${searchList[index].urlToImage}"),
